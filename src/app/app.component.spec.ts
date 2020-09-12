@@ -1,35 +1,33 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { compute } from "./shared/compute"
+import { greeting } from "./shared/greeting"
+import { getCountries } from "./shared/countries"
 
-describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+describe('compute', () => {
+  it('should return 0 if negative or 0 input', () => {
+    const result = compute(-1)
+    expect(result).toBe(0) // результат ДОЛЖЕН БЫТЬ
+  })
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  it('should return input + 1 if positive', () => {
+    const result = compute(50)
+    expect(result).toBe(51)
+  })
+})
 
-  it(`should have as title 'ng-testing'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-testing');
-  });
+describe('greeting', () => {
+  it('should contain input name', () => {
+    const result = greeting('Ilya')
+    expect(result).toContain('Ilya')
+    // результат ДОЛЖЕН ВКЛЮЧАТЬ (а не БЫТЬ), тк возвращается 'Hello, Ilya'. Проверять такое -- не варик
+  })
+})
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ng-testing app is running!');
-  });
-});
+describe('getCountries', () => {
+  it('should return array of countries', () => {
+    const result = getCountries()
+
+    result.forEach((country: string) => {
+      expect(result).toContain(country)
+    })
+  })
+})
